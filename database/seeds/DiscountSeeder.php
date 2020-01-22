@@ -14,6 +14,6 @@ class DiscountSeeder extends Seeder
     public function run()
     {
         DB::table('discounts')->truncate();
-        factory(Discount::class)->times(500)->create();
+        factory(Discount::class)->times(50000)->create();
     }
 }

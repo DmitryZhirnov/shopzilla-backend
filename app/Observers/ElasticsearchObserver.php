@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Http\Resources\DiscountResource;
 use App\Models\FavoritableBase;
 use Elasticsearch\Client;
+use Illuminate\Support\Facades\Cache;
 
 class ElasticsearchObserver
 {
@@ -36,7 +37,6 @@ class ElasticsearchObserver
 
     public function favorited($model)
     {
-
         $index = [
             'index' => 'favorite_' . $model->getSearchIndex(),
             'type' => $model->getSearchType(),
@@ -47,6 +47,7 @@ class ElasticsearchObserver
             ],
         ];
         $this->elasticsearch->index($index);
+        $this->flush(auth()->user()->id);
     }
 
     public function unFavorited($model)
@@ -56,5 +57,13 @@ class ElasticsearchObserver
             'type' => $model->getSearchType(),
             'id' => $model->getKey(),
         ]);
+        $this->flush(auth()->user()->id);
+    }
+    /**
+     * Очистка кеша
+     */
+    private function flush(int $userId)
+    {
+        Cache::flush("USER_{$userId}_FAVORITES");
     }
 }

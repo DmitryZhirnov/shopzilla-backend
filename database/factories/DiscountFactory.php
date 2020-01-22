@@ -9,6 +9,7 @@ use Faker\Factory;
 use Faker\Generator as Faker;
 
 $factory->define(Discount::class, function (Faker $faker) {
+    
     $categoryId = Category::all()->pluck("id")->random(1)->values()->all()[0];
 
     $minDate = Carbon::now()->addDays(-30);

@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Resources\DiscountResource;
-use App\Models\Article;
+
 use App\Models\Category;
 use App\Models\Discount;
 use Elasticsearch\Client;
@@ -22,7 +21,7 @@ class ReindexCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Indexes all articles to Elasticsearch';
+    protected $description = 'Indexes all searchable models to Elasticsearch';
     /** @var \Elasticsearch\Client */
     private $elasticsearch;
 
@@ -63,8 +62,6 @@ class ReindexCommand extends Command
                 $this->output->write('.');
             }
         }
-        //$this->elasticsearch->create(['index'=>'favorite_discounts']);
-
         $this->info('\nDone!');
     }
 }

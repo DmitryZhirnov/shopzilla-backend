@@ -1,10 +1,12 @@
 <?php
 
-use App\Models\Article;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class ArticleSeeder extends Seeder
+class UserSeeder1 extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +15,6 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('articles')->truncate();
-        factory(Article::class)->times(50)->create();
+
     }
 }

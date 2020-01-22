@@ -11,15 +11,13 @@
 |
 */
 
-use App\Models\Discount;
-use App\Repositories\Articles\ArticleRepositoryContract;
 use App\Repositories\Discounts\DiscountRepositoryContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function (Request $request, ArticleRepositoryContract $repository) {
-    $articles = $repository->search(strval($request['query']));
-    return view('welcome', ['articles' => $articles]);
+Route::get('/', function (Request $request, DiscountRepositoryContract $repository) {
+    $discounts = $repository->search(strval(""));
+    return view('discounts', ['discounts' => $discounts["items"]]);
 });
 
 Route::get('/discounts', function (Request $request, DiscountRepositoryContract $repository) {
@@ -27,5 +25,5 @@ Route::get('/discounts', function (Request $request, DiscountRepositoryContract 
         $discounts = $repository->search(strval($request["query"]));
     else
         $discounts = $repository->search(strval($request['query']), $request['from'], $request['size']);
-    return view('discounts', ['discounts' => $discounts]);
+    return view('discounts', ['discounts' => $discounts['items']]);
 });

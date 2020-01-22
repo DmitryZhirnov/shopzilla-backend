@@ -35,8 +35,8 @@ Route::group(["middleware" => "auth:api"], function () {
         return response()->json($orders);
     });
 
-    Route::get('/discounts', 'DiscountController@index')->name('discounts-search');
     Route::get('/discounts/favorites' , 'DiscountController@favorites')->name('discounts-favorites');
     Route::post('/discounts/favorite' , 'DiscountController@favorite')->name('discount-favorite');
     Route::post('/discounts/unfavorite' , 'DiscountController@unfavorite')->name('discount-unfavorite');
 });
+Route::get('/discounts', 'DiscountController@index')->name('discounts-search');

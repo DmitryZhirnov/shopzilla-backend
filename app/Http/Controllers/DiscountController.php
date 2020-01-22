@@ -16,14 +16,12 @@ class DiscountController extends Controller
      */
     public function index(Request $request, DiscountRepositoryContract $repository)
     {
-        info($request);
         $query = empty($request['query']) ? '' : $request['query'];
         if (empty($request->from) || empty($request->size))
             $response = $repository->search($query);
         else
             $response = $repository->search($query, $request->from, $request->size);
-
-        return $response;
+        return json_encode($response);
     }
 
     /**

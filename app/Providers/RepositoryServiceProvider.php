@@ -9,11 +9,7 @@ use Elasticsearch\ClientBuilder;
 class RepositoryServiceProvider extends ServiceProvider
 {
     private $providerBindings = [
-        [
-            'contract' => \App\Repositories\Articles\ArticleRepositoryContract::class,
-            'eloquent' => \App\Repositories\Articles\ArticleEloquentRepository::class,
-            'elasticsearch' => \App\Repositories\Articles\ArticleElasticRepository::class
-        ],        [
+      [
             'contract' => \App\Repositories\Discounts\DiscountRepositoryContract::class,
             'eloquent' => \App\Repositories\Discounts\DiscountEloquentRepository::class,
             'elasticsearch' => \App\Repositories\Discounts\DiscountElasticRepository::class

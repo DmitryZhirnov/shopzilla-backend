@@ -20,11 +20,12 @@ class ElasticRepository implements SearchContract
     {
         $this->elasticsearch = $elasticsearch;
     }
-    public function search(string $query = '', int $from = 0, int $size = 16): Array
+    public function search(string $query = '', int $from = 0, int $size = 50): Array
     {
         $items = $this->searchOnElasticsearch($query, $from, $size);
+        $collection = $this->buildCollection($items);
         return [
-            'items' => $this->buildCollection($items),
+            'items' => $collection,
             'from' => $from,
             'size' => $size
         ];
@@ -61,9 +62,6 @@ class ElasticRepository implements SearchContract
     {
         $ids = Arr::pluck($items['hits']['hits'], '_id');
 
-        return $this->model::findMany($ids)
-            ->sortBy(function ($model) use ($ids) {
-                return array_search($model->getKey(), $ids);
-            });
+        return $this->model::findMany($ids);
     }
 }

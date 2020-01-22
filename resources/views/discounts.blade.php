@@ -73,7 +73,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Discounts <small>({{ $discounts->count() }})</small>
+                Discounts <small>({{ count($discounts) }})</small>
             </div>
             <div class="card-body">
                 <form action="{{ url('/discounts') }}" method="get">
@@ -83,8 +83,9 @@
                 </form>
                 @forelse ($discounts as $discount)
                 <article class="mb-3">
+                    
                     <div class="article-content">
-                        <h1>{{ $discount->title }}</h1>
+                        <h1>{{ $discount["title"] }}</h1>
                         <p>Категория</p><strong>{{$discount->category->title}}</strong>
                         <p class="m-0">{{ Str::limit($discount->description, 100, '...') }}
                         </p>
