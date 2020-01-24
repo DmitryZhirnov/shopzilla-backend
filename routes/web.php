@@ -16,8 +16,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request, DiscountRepositoryContract $repository) {
-    $discounts = $repository->search(strval(""));
-    return view('discounts', ['discounts' => $discounts["items"]]);
+    // $discounts = $repository->search(strval(""));
+    // return view('discounts', ['discounts' => $discounts["items"]]);
+    return "asdf";
 });
 
 Route::get('/discounts', function (Request $request, DiscountRepositoryContract $repository) {
