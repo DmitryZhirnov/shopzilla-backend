@@ -1,0 +1,40 @@
+before_script:
+  # Гитлаб скачивает себе утилиту sshpass
+  - apt-get update -qq && apt-get install -y -qq sshpass
+  # Настраиваем SSH
+  - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  # Создаем папку для репозитория
+  - mkdir -p $PROJECTS_DIR/$REPOSITORY_NAME
+  # Клонируем в неё репозиторий
+  - git clone git@gitlab.com:$GROUP_NAME/$REPOSITORY_NAME.git $PROJECTS_DIR/$REPOSITORY_NAME
+# Создаем папку под готовый билд
+
+stages:
+  - build
+  # - deploy
+
+compile:
+  stage: build
+  script:
+    # Переходим в папку с Go файлами
+    - cd $PROJECTS_DIR/$REPOSITORY_NAME
+    - composer update
+# deploy:
+#     stage: deploy
+#     script:
+# Переходим в папку с билдом () там лежит бинарник и папка public
+# - cd $CI_PROJECT_DIR/build
+# Используем утилиту sshpass для удаленного выполнения команд на VDS
+# - sshpass -V
+# - export SSHPASS=$USER_PASS
+# Останавливаем сервис
+# - sshpass -e ssh -o stricthostkeychecking=no $USER@$HOST systemctl stop $SERVICE_NAME
+# Копируем новые файлы
+# - sshpass -e scp -o stricthostkeychecking=no -r . $USER@$HOST:$TARGET_DIR_ON_HOST
+# Перезапускаем сервис
+# - sshpass -e ssh -o stricthostkeychecking=no $USER@$HOST systemctl restart $SERVICE_NAME
