@@ -3,7 +3,7 @@ stages:
   # - deploy
 before_script:
   - eval "$(ssh-agent -s)"
-  - ssh-add $SSH_KEY_DEPLOY #~/.ssh/id_rsa
+  - ssh-add $SSH_KEY_DEPLOY
   - ssh-keyscan -H '176.107.160.53' >> ~/.ssh/known_hosts
 
 compile:
