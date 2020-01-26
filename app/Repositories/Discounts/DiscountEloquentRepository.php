@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DiscountEloquentRepository implements DiscountRepositoryContract
 {
-    public function search(string $query = ''): Array
+    public function search(string $query = '', int $from = 0, int $size = 50): Array
     {
         if (empty($query))
             return Discount::all();
